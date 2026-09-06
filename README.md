@@ -30,7 +30,6 @@ FamilyShield is a full-stack family safety app built for one real moment: your p
 - [Env Vars](#-env-vars)
 - [API Overview](#-api-overview)
 - [Security](#-security-notes)
-- [Roadmap](#️-roadmap)
 - [Contributing](#-contributing)
 - [Author](#-author)
 - [License](#-license)
