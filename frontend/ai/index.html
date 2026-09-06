@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FamilyShield AI</title>
+  <link rel="stylesheet" href="../styles.css?v=v11" />
+  <link rel="stylesheet" href="./ai.css?v=v20" />
+</head>
+<body class="dark ai-page">
+  <div class="ai-shell">
+    <!-- Sidebar -->
+    <aside class="ai-sidebar" id="ai-sidebar">
+      <div class="ai-sidebar-header">
+        <a href="/" class="ai-back-btn" title="Back to Dashboard">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </a>
+        <button class="lang-toggle" id="lang-toggle" type="button" title="भाषा बदलें / Change language">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+          <span class="lang-toggle-label" id="lang-label">HI</span>
+        </button>
+        <button class="ai-new-chat-btn" id="new-chat-btn" title="New Chat">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          <span data-i18n="ai.newChat">New Chat</span>
+        </button>
+        <button class="ai-open-shared-btn" id="open-shared-btn" title="Open a shared conversation">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+          </svg>
+        </button>
+      </div>
+      <div class="ai-sidebar-list" id="conversation-list">
+        <div class="ai-sidebar-empty" data-i18n="ai.noConversations">No conversations yet</div>
+      </div>
+      <div class="ai-sidebar-shared hidden" id="shared-section">
+        <div class="ai-sidebar-shared-label" data-i18n="ai.sharedWithMe">Shared with me</div>
+        <div class="ai-sidebar-shared-list" id="shared-list"></div>
+      </div>
+    </aside>
+
+    <!-- Mobile sidebar toggle -->
+    <button class="ai-sidebar-toggle" id="sidebar-toggle" title="Menu">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M3 12h18M3 6h18M3 18h18"/>
+      </svg>
+    </button>
+
+    <!-- Main Chat -->
+    <main class="ai-main">
+      <!-- Thread Header (shown when conversation is open) -->
+      <div class="ai-thread-header hidden" id="ai-thread-header">
+        <button class="ai-thread-menu-btn" id="thread-menu-btn" title="Menu">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M3 12h18M3 6h18M3 18h18"/>
+          </svg>
+        </button>
+        <span class="ai-thread-title" id="ai-thread-title"></span>
+        <button class="ai-share-btn" id="ai-share-btn" title="Share with family">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span data-i18n="common.share">Share</span>
+        </button>
+        <span class="ai-share-status hidden" id="ai-share-status" data-i18n="ai.shared">✓ Shared</span>
+      </div>
+
+      <!-- Thread (scrollable) -->
+      <div class="ai-thread" id="ai-thread">
+        <!-- Empty state -->
+        <div class="ai-empty" id="ai-empty">
+          <div class="ai-empty-icon">
+            <svg viewBox="0 0 64 64" width="64" height="64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 4L8 14v16c0 14.4 10.2 27.8 24 32 13.8-4.2 24-17.6 24-32V14L32 4z" fill="var(--brand)" fill-opacity="0.15" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M24 32l6 6 12-12" stroke="var(--brand)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="ai-empty-brand" data-i18n="ai.emptyTitle">FamilyShield</div>
+          <h2 data-i18n="ai.emptySubtitle">How can I help?</h2>
+          <p data-i18n="ai.emptyDesc">Paste a suspicious message or upload a screenshot — I'll analyze the risk.</p>
+          <div class="ai-empty-suggestions">
+            <button class="ai-suggestion" data-text="I received an SMS saying my bank account will be blocked. Is this a scam?" data-i18n-text="ai.promptSMS">
+              <span class="ai-suggestion-title" data-i18n="ai.suspiciousSMS">Suspicious SMS</span>
+              <span class="ai-suggestion-sub" data-i18n="ai.suspiciousSMSDesc">Check if a bank message is a scam</span>
+            </button>
+            <button class="ai-suggestion" data-text="What does this bank message mean? Explain in simple words." data-i18n-text="ai.promptExplain">
+              <span class="ai-suggestion-title" data-i18n="ai.explainMessage">Explain a message</span>
+              <span class="ai-suggestion-sub" data-i18n="ai.explainDesc">Understand what it asks you to do</span>
+            </button>
+            <button class="ai-suggestion" data-text="I got a job offer asking for a registration fee. Is this legitimate?" data-i18n-text="ai.promptJob">
+              <span class="ai-suggestion-title" data-i18n="ai.jobOfferCheck">Job offer check</span>
+              <span class="ai-suggestion-sub" data-i18n="ai.jobDesc">Verify offers asking for money</span>
+            </button>
+            <button class="ai-suggestion" data-text="Someone sent me a link and asked me to click urgently. Should I?" data-i18n-text="ai.promptLink">
+              <span class="ai-suggestion-title" data-i18n="ai.suspiciousLink">Suspicious link</span>
+              <span class="ai-suggestion-sub" data-i18n="ai.linkDesc">Decide before you click</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="ai-messages" id="ai-messages"></div>
+      </div>
+
+      <!-- Processing stages -->
+      <div class="ai-stages hidden" id="ai-stages"></div>
+
+      <!-- Composer (always visible) -->
+      <div class="ai-composer-wrap">
+        <div class="ai-composer" id="ai-composer">
+          <div class="ai-input-preview hidden" id="image-preview">
+            <img id="preview-img" src="" alt="Preview" />
+            <button class="ai-preview-remove" id="remove-image" title="Remove">&times;</button>
+          </div>
+          <div class="ai-input-row">
+            <label class="ai-upload-btn" title="Upload image">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <path d="M21 15l-5-5L5 21"/>
+              </svg>
+              <input type="file" id="image-input" accept="image/*" hidden />
+            </label>
+            <textarea
+              class="ai-text-input"
+              id="ai-text-input"
+              placeholder="Ask about a message, link, or upload a screenshot…"
+              data-i18n="ai.typeMessage"
+              rows="1"
+            ></textarea>
+            <button class="ai-send-btn" id="send-btn" title="Send">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M12 19V5M5 12l7-7 7 7"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <p class="ai-disclaimer" data-i18n="ai.footerNote">Verify important decisions with consultation of your family members.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="../i18n/translations.js?v=v5"></script>
+  <script src="../i18n/i18n.js?v=v6"></script>
+  <script src="./ai.js?v=v24"></script>
+</body>
+</html>

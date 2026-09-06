@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FamilyShield</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css?v=v11">
+</head>
+<body>
+  <div class="shell" id="shell">
+
+    <!-- BRAND PANEL - Only for auth -->
+    <aside class="brand-panel" id="brand-panel">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 4 40 10v12c0 10.3-6.6 18.9-16 22-9.4-3.1-16-11.7-16-22V10L24 4Z" fill="currentColor"/>
+            <path d="M16 24h16M24 16v16" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">FamilyShield</p>
+          <h1>AI helps you understand. Your family helps you decide.</h1>
+        </div>
+      </div>
+
+      <div class="risk-preview">
+        <div class="risk-head">
+          <strong>Smart Analysis</strong>
+        </div>
+        <p>Paste any suspicious message and get instant risk assessment powered by AI.</p>
+        <small>Never share OTP, password, PIN, or banking information.</small>
+      </div>
+
+      <div class="brand-footer">
+        <small>Protecting families from digital threats</small>
+      </div>
+
+      <!-- Floating 3D orbs -->
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </aside>
+
+    <main class="app-panel">
+
+      <!-- ═══════════════════════════════════════════════
+           AUTH VIEW - 3D Animated
+           ═══════════════════════════════════════════════ -->
+      <section id="auth-view" class="view">
+        <div class="auth-3d-scene">
+          <!-- Floating particles -->
+          <div class="particles" id="particles"></div>
+
+          <!-- Floating shield icon -->
+          <div class="floating-shield">
+            <svg viewBox="0 0 80 80" fill="none">
+              <defs>
+                <linearGradient id="shield-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
+                  <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                </linearGradient>
+              </defs>
+              <path d="M40 8 68 18v20c0 17-12 31-28 36C24 69 12 55 12 38V18L40 8Z" fill="url(#shield-grad)" opacity="0.15"/>
+              <path d="M40 12 64 20v18c0 15-10 27-24 32C26 65 16 53 16 38V20L40 12Z" stroke="url(#shield-grad)" stroke-width="1.5" fill="none"/>
+              <path d="M32 40h16M40 32v16" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="auth-content">
+          <div class="panel-head">
+            <div>
+              <p class="eyebrow">Secure Access</p>
+              <h2 id="auth-title">Welcome back</h2>
+            </div>
+            <button class="ghost-icon" id="theme-toggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <span class="theme-icon">◐</span>
+            </button>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Authentication">
+            <button class="tab active" type="button" data-mode="login">Login</button>
+            <button class="tab" type="button" data-mode="signup">Sign up</button>
+            <span class="tab-indicator"></span>
+          </div>
+
+          <p id="message" class="message" role="status"></p>
+
+          <form id="auth-form" class="form">
+            <label id="name-field" class="field hidden">
+              <span>Name</span>
+              <input id="name" name="name" autocomplete="name" minlength="2" maxlength="100" placeholder="Your full name">
+            </label>
+
+            <label class="field">
+              <span>Email</span>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+            </label>
+
+            <label class="field">
+              <span>Password</span>
+              <div class="password-wrapper">
+                <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" required placeholder="Min 8 characters">
+                <button type="button" class="password-toggle" tabindex="-1" aria-label="Toggle password visibility">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+            </label>
+
+            <button class="primary" id="auth-submit" type="submit">
+              <span class="btn-text">Login</span>
+              <span class="btn-loader hidden"></span>
+            </button>
+          </form>
+
+          <div class="divider">
+            <span>or continue with</span>
+          </div>
+
+          <button class="google" id="google-login" type="button">
+            <svg class="google-icon" viewBox="0 0 24 24" width="20" height="20">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+        <button class="link-button" id="forgot-open" type="button">Forgot password?</button>
+
+        <form id="reset-form" class="form compact hidden">
+            <label class="field">
+              <span>New password</span>
+              <div class="password-wrapper">
+                <input id="new-password" type="password" minlength="8" maxlength="128" placeholder="Min 8 characters">
+                <button type="button" class="password-toggle" tabindex="-1" aria-label="Toggle password visibility">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+            </label>
+            <button class="secondary" type="submit">
+              <span class="btn-text">Reset password</span>
+              <span class="btn-loader hidden"></span>
+            </button>
+            <button class="link-button" id="reset-back-login" type="button">Back to login</button>
+          </form>
+
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════
+           ONBOARDING VIEW
+           ═══════════════════════════════════════════════ -->
+      <section id="onboarding-view" class="view hidden">
+        <div class="onboarding">
+          <div class="onboarding-steps">
+            <span class="step-dot active" data-step="1"></span>
+            <span class="step-line"></span>
+            <span class="step-dot" data-step="2"></span>
+            <span class="step-line"></span>
+            <span class="step-dot" data-step="3"></span>
+          </div>
+
+          <div id="onboard-step-1" class="onboard-content">
+            <div class="onboard-icon bounce-in">👋</div>
+            <h2>Welcome to FamilyShield</h2>
+            <p>You've successfully signed in. Let's set up your account in just a moment.</p>
+            <button class="primary onboard-next" type="button">Get Started</button>
+            <button class="link-button onboard-skip" type="button">Skip for now</button>
+          </div>
+
+          <div id="onboard-step-2" class="onboard-content hidden">
+            <div class="onboard-icon bounce-in">✏️</div>
+            <h2>Confirm your name</h2>
+            <p>How should we address you?</p>
+            <label class="field">
+              <span>Your name</span>
+              <input id="onboard-name" type="text" placeholder="Your name" autocomplete="name">
+            </label>
+            <button class="primary onboard-next" type="button">Continue</button>
+          </div>
+
+          <div id="onboard-step-3" class="onboard-content hidden">
+            <div class="onboard-icon bounce-in">🛡️</div>
+            <h2>You're all set!</h2>
+            <p>Create or join your family group — then share messages, screenshots, and get AI help right inside your family chat.</p>
+            <button class="primary onboard-finish" type="button">Go to Dashboard</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════
+           DASHBOARD VIEW - Family Home
+           ═══════════════════════════════════════════════ -->
+      <section id="dashboard-view" class="view dashboard-full hidden">
+
+        <!-- Invite banner (shown when ?invite=CODE is in URL) -->
+        <div class="invite-banner hidden" id="invite-banner">
+          <span class="invite-banner-icon">👨‍👩‍👧</span>
+          <div class="invite-banner-body">
+            <strong>You've been invited to join a family!</strong>
+            <span id="invite-family-name"></span>
+          </div>
+          <button class="invite-banner-accept" id="invite-banner-accept" type="button">Accept &amp; Join</button>
+          <button class="invite-banner-dismiss" id="invite-banner-dismiss" type="button">×</button>
+        </div>
+
+        <!-- Email verification banner (unverified password users) -->
+        <div class="verify-banner hidden" id="verify-banner">
+          <span class="verify-banner-icon">✉️</span>
+          <div class="verify-banner-body">
+            <strong>Please verify your email</strong>
+            <span>to keep your account secure.</span>
+          </div>
+          <button class="verify-banner-resend" id="verify-banner-resend" type="button">Verify</button>
+          <button class="verify-banner-dismiss" id="verify-banner-dismiss" type="button">×</button>
+        </div>
+
+        <!-- Top nav bar -->
+        <nav class="dash-nav">
+          <div class="dash-brand">
+            <svg class="dash-logo" viewBox="0 0 32 32" fill="none">
+              <path d="M16 3 27 7v8c0 7-4.4 12.6-11 14.7C9.4 27.6 5 22 5 15V7L16 3Z" fill="url(#nav-grad)"/>
+              <defs>
+                <linearGradient id="nav-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" style="stop-color:#34d399"/>
+                  <stop offset="100%" style="stop-color:#059669"/>
+                </linearGradient>
+              </defs>
+              <path d="M11 16h10M16 11v10" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+            <span class="dash-brand-name">FamilyShield</span>
+          </div>
+          <div class="dash-nav-actions">
+            <button class="nav-icon-btn" id="guide-btn" type="button" aria-label="Guide" title="How to use FamilyShield">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                <line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+            </button>
+            <div class="notif-bell-wrap" id="notif-bell-wrap">
+              <button class="nav-icon-btn" id="notif-btn" type="button" aria-label="Notifications" title="Notifications">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+                <span class="notification-badge hidden" id="notif-badge">0</span>
+              </button>
+              <div class="notif-panel hidden" id="notif-panel">
+                <div class="notif-panel-header">
+                  <h3>Notifications</h3>
+                  <button class="notif-mark-all" id="notif-mark-all" type="button">Mark all read</button>
+                </div>
+                <div class="notif-panel-list" id="notif-panel-list">
+                  <div class="notif-empty">No notifications yet</div>
+                </div>
+              </div>
+            </div>
+            <div class="nav-avatar" id="avatar" title="Edit profile">F</div>
+            <button class="ghost" id="logout" type="button">Logout</button>
+            <button class="ghost-icon" id="theme-toggle-dash" type="button" title="Toggle theme" aria-label="Toggle theme">
+              <span class="theme-icon">◐</span>
+            </button>
+          </div>
+        </nav>
+
+        <!-- Greeting -->
+        <div class="dash-greeting">
+          <div>
+            <p class="greeting-time" id="greeting-time">Good afternoon</p>
+            <h2 id="welcome-title" class="greeting-name">Dashboard</h2>
+          </div>
+          <div class="greeting-status">
+            <span class="status-dot-online"></span>
+            <span id="user-email" class="greeting-email">Signed in</span>
+          </div>
+        </div>
+
+        <!-- ─── FAMILY CARD (dynamically rendered) ─── -->
+        <div id="family-card-root"></div>
+
+        <!-- ─── ASK SHIELD (static: visible to every dashboard user) ─── -->
+        <button class="ai-shield-btn" id="ai-shield-btn" type="button" onclick="location.href='./ai/index.html'">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>Ask Shield</span>
+        </button>
+
+        <!-- ─── ACTIVITY SECTION (shown when family has members) ─── -->
+        <div class="activity-section hidden" id="activity-section">
+          <div class="activity-header">
+            <h3 class="activity-title">Recent family activity</h3>
+            <button class="see-all-btn" type="button">See all</button>
+          </div>
+          <div class="activity-feed" id="activity-feed">
+            <!-- populated by JS -->
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- Profile Edit Modal -->
+  <div class="modal-overlay hidden" id="profile-modal">
+    <div class="modal-card profile-modal">
+      <div class="modal-header">
+        <h3>Edit Profile</h3>
+        <button class="modal-close" id="profile-modal-close" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="profile-avatar-row">
+          <div class="profile-avatar-large" id="profile-avatar-large">F</div>
+        </div>
+        <form id="profile-form" class="profile-form">
+          <label class="field">
+              <span>Display Name</span>
+            <input type="text" id="profile-name-input" minlength="2" maxlength="100" required>
+          </label>
+          <div class="profile-divider"></div>
+          <p class="profile-section-label">Change Password</p>
+          <label class="field">
+              <span>Current Password</span>
+              <input type="password" id="profile-current-pw" placeholder="Enter current password">
+          </label>
+          <label class="field">
+              <span>New Password</span>
+              <input type="password" id="profile-new-pw" minlength="8" maxlength="128" placeholder="Min 8 characters">
+          </label>
+          <div class="profile-actions">
+            <button type="button" class="ghost" id="profile-cancel-btn">Cancel</button>
+            <button type="submit" class="primary">
+              <span class="btn-text">Save Changes</span>
+              <span class="btn-loader hidden"></span>
+            </button>
+          </div>
+          <div class="profile-msg hidden" id="profile-msg"></div>
+        </form>
+        <div class="profile-divider"></div>
+        <p class="profile-section-label">Email Verification</p>
+        <p class="profile-verify-status" id="profile-verify-status"></p>
+        <div class="profile-verify-actions">
+          <button type="button" class="primary hidden" id="profile-verify-btn">Verify Account</button>
+          <button type="button" class="ghost hidden" id="profile-resend-btn">Resend Code</button>
+        </div>
+        <div class="profile-divider"></div>
+        <p class="profile-section-label danger-label">Danger Zone</p>
+        <button type="button" class="btn-delete-account" id="profile-delete-btn">Delete Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Verification Modal -->
+  <div class="modal-overlay hidden" id="verify-modal">
+    <div class="modal-card verify-modal">
+      <div class="modal-header">
+        <h3>Verify your email</h3>
+      </div>
+      <div class="modal-body">
+        <p class="verify-modal-sub">We sent a 6-digit code to</p>
+        <p class="verify-modal-email" id="verify-email-text"></p>
+        <label class="field">
+          <span>Verification code</span>
+          <input type="text" id="verify-code-input" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="Enter 6-digit code">
+        </label>
+        <div class="verify-modal-error hidden" id="verify-modal-error"></div>
+        <div class="verify-actions">
+          <button type="button" class="ghost" id="verify-skip-btn">Skip for now</button>
+          <button type="button" class="primary" id="verify-submit-btn">
+            <span class="btn-text">Verify</span>
+            <span class="btn-loader hidden"></span>
+          </button>
+        </div>
+        <p class="verify-resend-row">
+          <span>Didn't get the code?</span>
+          <button type="button" class="verify-resend-link" id="verify-resend-btn">Resend</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Family Rename Modal -->  <div class="modal-overlay hidden" id="rename-modal">
+    <div class="modal-card rename-modal">
+      <div class="modal-header">
+        <h3>Rename Family</h3>
+        <button class="modal-close" id="rename-modal-close" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="rename-form">
+          <label class="field">
+            <span>Family Name</span>
+            <input type="text" id="rename-input" minlength="1" maxlength="80" required>
+          </label>
+          <div class="rename-actions">
+            <button type="button" class="ghost" id="rename-cancel-btn">Cancel</button>
+            <button type="submit" class="primary">
+              <span class="btn-text">Rename</span>
+              <span class="btn-loader hidden"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guide Modal -->
+  <div class="modal-overlay hidden" id="guide-modal">
+    <div class="modal-card guide-modal">
+      <div class="modal-header">
+        <h3>How to use FamilyShield</h3>
+        <button class="modal-close" id="guide-modal-close" type="button">&times;</button>
+      </div>
+      <div class="modal-body guide-body">
+        <div class="guide-step">
+          <div class="guide-step-num">1</div>
+          <div class="guide-step-content">
+            <strong>Create or Join a Family</strong>
+            <p>Start by creating a new family or join an existing one using an invite code. This is your private hub for staying connected.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">2</div>
+          <div class="guide-step-content">
+            <strong>Invite Family Members</strong>
+            <p>Share your invite link or QR code with family members. As admin, you can manage roles and rename the family.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">3</div>
+          <div class="guide-step-content">
+            <strong>Open Family Chat</strong>
+            <p>Use the Family Chat to communicate in real time. Messages are delivered instantly via WebSocket.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">4</div>
+          <div class="guide-step-content">
+            <strong>Ask Shield (AI Assistant)</strong>
+            <p>Tap the purple "Ask Shield" button to get AI-powered safety advice, guidance, and answers to your questions.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">5</div>
+          <div class="guide-step-content">
+            <strong>Stay Notified</strong>
+            <p>Enable push notifications to receive instant alerts. The bell icon shows unread notifications at a glance.</p>
+          </div>
+        </div>
+        <div class="guide-step">
+          <div class="guide-step-num">6</div>
+          <div class="guide-step-content">
+            <strong>Manage Your Profile</strong>
+            <p>Click your avatar in the top bar to edit your display name or change your password.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js?v=v4"></script>
+</body>
+</html>

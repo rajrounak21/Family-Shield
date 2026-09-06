@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FamilyShield — Family Reviews</title>
+  <link rel="stylesheet" href="../styles.css?v=v1" />
+  <link rel="stylesheet" href="review.css?v=v2" />
+</head>
+<body>
+  <div class="rv-nav">
+    <a class="rv-back" href="../" title="Back to dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+    <div class="rv-nav-title">
+      <h1>Family Reviews</h1>
+      <span class="rv-nav-sub">Review requests from your family</span>
+    </div>
+    <div class="rv-nav-tabs">
+      <button class="rv-nav-tab active" data-tab="shared-with-me" type="button">Shared with me</button>
+      <button class="rv-nav-tab" data-tab="i-shared" type="button">I shared</button>
+    </div>
+  </div>
+
+  <div class="rv-content" id="rv-content">
+    <div class="rv-loading" id="rv-loading">Loading reviews</div>
+  </div>
+
+  <div class="rv-detail" id="rv-detail">
+    <div class="rv-content" id="rv-detail-content"></div>
+  </div>
+
+  <script type="module" src="review.js?v=v5"></script>
+</body>
+</html>

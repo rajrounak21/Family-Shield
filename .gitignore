@@ -1,0 +1,25 @@
+# Env / secrets (keep .env.example tracked)
+.env
+.env.local
+
+# Python venvs (yours is myenv/)
+myenv/
+.venv/
+venv/
+ENV/
+
+# Python cache
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs / temp
+*.log
+.opencode/

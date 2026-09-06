@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FamilyShield - Forgot Password</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .shell {
+      grid-template-columns: 1fr;
+    }
+    .brand-panel {
+      display: none;
+    }
+    .app-panel {
+      min-height: 100vh;
+      place-items: center;
+    }
+    .view {
+      width: min(100%, 480px);
+      animation: fadeSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .back-link:hover {
+      color: var(--brand);
+      transform: translateX(-4px);
+    }
+    .back-arrow {
+      font-size: 16px;
+      line-height: 1;
+    }
+    .success-state {
+      text-align: center;
+      display: none;
+    }
+    .success-state.show {
+      display: block;
+      animation: fadeSlideIn 0.4s ease-out;
+    }
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      animation: bounceIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes bounceIn {
+      from { opacity: 0; transform: scale(0.3); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="brand-panel"></aside>
+    <main class="app-panel">
+      <section id="forgot-view" class="view">
+        <a href="/" class="back-link">
+          <span class="back-arrow">←</span>
+          Back to login
+        </a>
+
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">Password Recovery</p>
+            <h2>Forgot password?</h2>
+          </div>
+          <button class="ghost-icon" id="theme-toggle" type="button" title="Toggle theme" aria-label="Toggle theme">
+            <span class="theme-icon">◐</span>
+          </button>
+        </div>
+
+        <p class="form-description">No worries! Enter your email address and we'll send you a link to reset your password.</p>
+
+        <!-- Email Form -->
+        <form id="forgot-form" class="form">
+          <label class="field">
+            <span>Email address</span>
+            <input id="forgot-email" type="email" autocomplete="email" required placeholder="you@example.com">
+          </label>
+          <button class="primary" type="submit" id="forgot-submit">
+            <span class="btn-text">Send reset link</span>
+            <span class="btn-loader hidden"></span>
+          </button>
+        </form>
+
+        <!-- Success State -->
+        <div id="success-state" class="success-state">
+          <div class="success-icon">✉️</div>
+          <h2>Check your email</h2>
+          <p class="form-description">We've sent a password reset link to <strong id="sent-email">your email</strong>. The link will expire in 15 minutes.</p>
+          <p class="form-note">Didn't receive the email? Check your spam folder or try again.</p>
+          <button class="secondary" id="try-again" type="button" style="margin-top: 20px;">
+            <span class="btn-text">Try another email</span>
+          </button>
+        </div>
+
+        <p id="message" class="message" role="status"></p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const API_BASE = "http://localhost:8000";
+    const forgotForm = document.getElementById("forgot-form");
+    const successState = document.getElementById("success-state");
+    const sentEmail = document.getElementById("sent-email");
+    const tryAgainBtn = document.getElementById("try-again");
+    const message = document.getElementById("message");
+
+    function setMessage(text, type = "") {
+      message.textContent = text;
+      message.className = `message ${type}`.trim();
+    }
+
+    function showLoader(btn, show) {
+      const text = btn.querySelector(".btn-text");
+      const loader = btn.querySelector(".btn-loader");
+      if (text) text.classList.toggle("hidden", show);
+      if (loader) loader.classList.toggle("hidden", !show);
+      btn.disabled = show;
+    }
+
+    // Theme toggle
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      localStorage.setItem("familyshield_theme", isDark ? "dark" : "light");
+    }
+
+    function loadTheme() {
+      const saved = localStorage.getItem("familyshield_theme");
+      if (saved === "dark") {
+        document.body.classList.add("dark");
+      }
+    }
+
+    document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
+
+    // Form submit
+    forgotForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("forgot-email").value.trim();
+      const submitBtn = document.getElementById("forgot-submit");
+
+      setMessage("Sending reset link...");
+      showLoader(submitBtn, true);
+
+      try {
+        const response = await fetch(`${API_BASE}/auth/forgot-password`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail || "Failed to send reset link");
+        }
+
+        sentEmail.textContent = email;
+        forgotForm.style.display = "none";
+        successState.classList.add("show");
+        setMessage("");
+      } catch (err) {
+        setMessage(err.message, "error");
+      } finally {
+        showLoader(submitBtn, false);
+      }
+    });
+
+    // Try again
+    tryAgainBtn.addEventListener("click", () => {
+      forgotForm.style.display = "";
+      successState.classList.remove("show");
+      document.getElementById("forgot-email").value = "";
+      setMessage("");
+    });
+
+    loadTheme();
+  </script>
+</body>
+</html>

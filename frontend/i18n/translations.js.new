@@ -1,0 +1,77 @@
+const TRANSLATIONS = {
+  en: {
+    // ─── Common ───
+
+    // ─── Auth ───
+
+    // ─── Onboarding ───
+
+    // ─── Dashboard ───
+
+    // ─── Family Card ───
+
+    // ─── Modals ───
+
+    // ─── Delete Account ───
+
+    // ─── Profile ───
+
+    // ─── Guide ───
+
+    // ─── AI Chat ───
+
+    // ─── Emergency Guidance (SRS §25) ───
+
+    // ─── Family Chat ───
+
+    // ─── Reviews ───
+
+    // ─── Notifications ───
+
+    // ─── Case ───
+
+    // ─── Manage Family ───
+
+    // ─── Share Page ───
+
+    // ─── Invite ───
+  },
+
+  hi: {
+    // ─── Common ───
+
+    // ─── Auth ───
+
+    // ─── Onboarding ───
+
+    // ─── Dashboard ───
+
+    // ─── Family Card ───
+
+    // ─── Modals ───
+
+    // ─── Delete Account ───
+
+    // ─── Profile ───
+
+    // ─── Guide ───
+
+    // ─── AI Chat ───
+
+    // ─── Emergency Guidance (SRS §25) ───
+
+    // ─── Family Chat ───
+
+    // ─── Reviews ───
+
+    // ─── Notifications ───
+
+    // ─── Case ───
+
+    // ─── Manage Family ───
+
+    // ─── Share Page ───
+
+    // ─── Invite ───
+  }
+};

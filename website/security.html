@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security — FamilyShield</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f0f2f1;
+      --panel-solid: #ffffff;
+      --ink: #0e1210;
+      --muted: #5a6560;
+      --line: rgba(0,0,0,0.08);
+      --brand: #10b981;
+      --brand-strong: #059669;
+      --soft: rgba(16,185,129,0.06);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .topbar { padding: 24px 0; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--brand); }
+    .back-link svg { width: 16px; height: 16px; }
+    .doc {
+      background: var(--panel-solid); border: 1.5px solid var(--line);
+      border-radius: var(--radius-xl); padding: clamp(28px, 5vw, 48px);
+      margin-bottom: 24px;
+    }
+    .doc .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      color: var(--brand); background: var(--soft);
+      border: 1px solid rgba(16,185,129,0.2); border-radius: 50px;
+      padding: 5px 14px; text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .doc h1 { font-size: clamp(28px, 4vw, 38px); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .updated { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .doc h2 { font-size: 19px; font-weight: 800; margin: 32px 0 12px; }
+    .doc p, .doc li { font-size: 15px; color: var(--muted); }
+    .doc p { margin-bottom: 12px; }
+    .doc p strong, .doc li strong { color: var(--ink); }
+    .doc ul { padding-left: 22px; margin-bottom: 12px; }
+    .doc li { margin-bottom: 8px; }
+    .doc a { color: var(--brand-strong); font-weight: 600; }
+    .bottom-nav { display: flex; justify-content: space-between; align-items: center; padding-bottom: 48px; flex-wrap: wrap; gap: 12px; }
+    .bottom-nav .back-link { font-size: 15px; }
+    .bottom-nav a.page-link { font-size: 14px; font-weight: 700; color: var(--brand-strong); text-decoration: none; }
+    .footer-note { text-align: center; font-size: 13px; color: var(--muted); padding-bottom: 40px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="back-link" href="./index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+    </div>
+
+    <article class="doc">
+      <span class="eyebrow">Legal</span>
+      <h1>Security</h1>
+      <p class="updated">Last updated: September 2026</p>
+
+      <p>FamilyShield is built with security-first engineering. This page describes the protections actually implemented in the app — and what you can do to keep your own account safe.</p>
+
+      <h2>1. Authentication</h2>
+      <ul>
+        <li><strong>Signed sessions:</strong> sign-in issues a short-lived JWT token that must accompany every API request.</li>
+        <li><strong>Password hashing:</strong> passwords are hashed with Argon2 and are never stored or logged in readable form.</li>
+        <li><strong>Google sign-in:</strong> optional OAuth login handled through Google's own secure flow — we never see your Google password.</li>
+        <li><strong>Sign out everywhere you can:</strong> signing out clears the session token from that browser.</li>
+      </ul>
+
+      <h2>2. Passwords and account recovery</h2>
+      <ul>
+        <li>Change your password at any time from your profile.</li>
+        <li>If you forget it, the reset flow emails you a single-use link — reset links expire and cannot be reused.</li>
+        <li>Never share your password, OTPs, or reset links with anyone, including family members.</li>
+      </ul>
+
+      <h2>3. Data in transit</h2>
+      <p>In production the app is served over HTTPS, so traffic between your browser and the server is encrypted with TLS. Family chat uses a secure WebSocket connection tied to your signed-in session.</p>
+
+      <h2>4. Family chat privacy</h2>
+      <ul>
+        <li>Chat history and live messages are scoped to your family group only — membership is verified before anything is served.</li>
+        <li>Only members of a family can open its chat or receive its messages.</li>
+        <li>Invite links and codes grant access to your family group, so share them only with people you trust.</li>
+      </ul>
+
+      <h2>5. Notifications</h2>
+      <p>Push notifications use the Web Push standard with VAPID keys, so alerts can only be sent by this application's server to devices you explicitly subscribed.</p>
+
+      <h2>6. What you can do</h2>
+      <ul>
+        <li>Use a strong, unique password for FamilyShield.</li>
+        <li>Keep family invite codes and QR codes private — anyone with the code can request to join.</li>
+        <li>Sign out on shared or public devices.</li>
+        <li>Keep your browser up to date so TLS and Web Push protections stay current.</li>
+        <li>Never paste passwords, OTPs, PINs, or banking details into chat or Ask Shield.</li>
+      </ul>
+
+      <h2>7. Responsible disclosure</h2>
+      <p>If you discover a security vulnerability, please do not exploit it or access other users' data. Report it through the app's support channels with a description and steps to reproduce, and give us reasonable time to fix it before any public disclosure.</p>
+
+      <h2>8. Data and privacy</h2>
+      <p>For what data is collected and how it is handled, see our <a href="./privacy.html">Privacy Policy</a>.</p>
+    </article>
+
+    <div class="bottom-nav">
+      <a class="back-link" href="./index.html">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+      <a class="page-link" href="./privacy.html">Read the Privacy Policy</a>
+    </div>
+
+    <p class="footer-note">&copy; 2026 FamilyShield. All rights reserved.</p>
+  </div>
+</body>
+</html>

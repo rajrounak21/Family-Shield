@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — FamilyShield</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f0f2f1;
+      --panel-solid: #ffffff;
+      --ink: #0e1210;
+      --muted: #5a6560;
+      --line: rgba(0,0,0,0.08);
+      --brand: #10b981;
+      --brand-strong: #059669;
+      --soft: rgba(16,185,129,0.06);
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg); color: var(--ink); line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .topbar { padding: 24px 0; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 700; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--brand); }
+    .back-link svg { width: 16px; height: 16px; }
+    .doc {
+      background: var(--panel-solid); border: 1.5px solid var(--line);
+      border-radius: var(--radius-xl); padding: clamp(28px, 5vw, 48px);
+      margin-bottom: 24px;
+    }
+    .doc .eyebrow {
+      display: inline-block; font-size: 12px; font-weight: 700;
+      color: var(--brand); background: var(--soft);
+      border: 1px solid rgba(16,185,129,0.2); border-radius: 50px;
+      padding: 5px 14px; text-transform: uppercase; letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+    .doc h1 { font-size: clamp(28px, 4vw, 38px); font-weight: 900; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .updated { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+    .doc h2 { font-size: 19px; font-weight: 800; margin: 32px 0 12px; }
+    .doc p, .doc li { font-size: 15px; color: var(--muted); }
+    .doc p { margin-bottom: 12px; }
+    .doc p strong, .doc li strong { color: var(--ink); }
+    .doc ul { padding-left: 22px; margin-bottom: 12px; }
+    .doc li { margin-bottom: 8px; }
+    .doc a { color: var(--brand-strong); font-weight: 600; }
+    .bottom-nav { display: flex; justify-content: space-between; align-items: center; padding-bottom: 48px; flex-wrap: wrap; gap: 12px; }
+    .bottom-nav .back-link { font-size: 15px; }
+    .bottom-nav a.page-link { font-size: 14px; font-weight: 700; color: var(--brand-strong); text-decoration: none; }
+    .footer-note { text-align: center; font-size: 13px; color: var(--muted); padding-bottom: 40px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="back-link" href="./index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+    </div>
+
+    <article class="doc">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: September 2026</p>
+
+      <p>FamilyShield is a family safety platform with real-time chat, push notifications, and an AI assistant ("Ask Shield"). This policy explains what data the app collects, how it is used, and the choices you have. It covers only what this app actually does — nothing more.</p>
+
+      <h2>1. Data we collect</h2>
+      <ul>
+        <li><strong>Account data:</strong> your display name, email address, and a password hash. Passwords are never stored in readable form — they are hashed with Argon2.</li>
+        <li><strong>Google sign-in data (if you use it):</strong> your name and email address as provided by Google OAuth.</li>
+        <li><strong>Family data:</strong> family names, membership records, roles (admin / member), and invite codes or links you create or use.</li>
+        <li><strong>Chat content:</strong> messages you send in family chat, so they can be delivered and shown as history to family members.</li>
+        <li><strong>Activity events:</strong> records such as joining or creating a family, used to render the recent-activity feed.</li>
+        <li><strong>AI queries:</strong> messages you send to Ask Shield, which are processed to generate a response.</li>
+        <li><strong>Notification data:</strong> push subscriptions and notification records, so alerts can reach your devices.</li>
+      </ul>
+
+      <h2>2. How we use your data</h2>
+      <ul>
+        <li>To create and sign you in to your account.</li>
+        <li>To operate family groups: membership, roles, invites, and the activity feed.</li>
+        <li>To deliver chat messages and notifications to you and your family members.</li>
+        <li>To answer your Ask Shield questions.</li>
+        <li>To send password-reset emails when you request them.</li>
+      </ul>
+      <p>We do not sell your personal data, and we do not use it for third-party advertising.</p>
+
+      <h2>3. AI processing</h2>
+      <p>Messages you send to Ask Shield are processed by our AI provider (Groq, using LangChain / LangGraph pipelines) for the sole purpose of generating a reply to you. Do not paste passwords, OTPs, PINs, or banking details into the chat or the AI assistant.</p>
+
+      <h2>4. Storage and retention</h2>
+      <p>Data is stored in the app's MongoDB database. Your sign-in token is kept in your own browser (local storage) and is cleared when you sign out. Chat history and family records are kept so the app can function for all members of a family.</p>
+
+      <h2>5. Who we share data with</h2>
+      <ul>
+        <li><strong>Your family members:</strong> your display name, online status, messages, and activity events are visible inside your own family group — and only there.</li>
+        <li><strong>Service processors:</strong> infrastructure hosting and database services, the AI provider for Ask Shield replies, Google for OAuth sign-in (if you use it), and the email service for password resets.</li>
+      </ul>
+      <p>We do not share data with anyone else unless required by law.</p>
+
+      <h2>6. Your choices</h2>
+      <ul>
+        <li>Edit your display name from your profile at any time.</li>
+        <li>Change your password from your profile, or reset it via the forgot-password flow.</li>
+        <li>Sign out to clear your session token from that browser.</li>
+        <li>Disable push notifications at any time from your browser or device settings.</li>
+      </ul>
+
+      <h2>7. Children and families</h2>
+      <p>FamilyShield is designed for family groups. Parents and guardians should manage who is invited into a family and supervise how younger members use chat and the AI assistant.</p>
+
+      <h2>8. Changes to this policy</h2>
+      <p>If this policy changes, the "Last updated" date above will be revised. Continued use of the app after changes means you accept the updated policy.</p>
+
+      <h2>9. Security</h2>
+      <p>For details on authentication, encryption, and how we protect your account, see our <a href="./security.html">Security</a> page.</p>
+    </article>
+
+    <div class="bottom-nav">
+      <a class="back-link" href="./index.html">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Back to Home
+      </a>
+      <a class="page-link" href="./security.html">Read the Security page</a>
+    </div>
+
+    <p class="footer-note">&copy; 2026 FamilyShield. All rights reserved.</p>
+  </div>
+</body>
+</html>

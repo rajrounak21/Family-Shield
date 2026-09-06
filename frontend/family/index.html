@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FamilyShield - Manage Family</title>
+  <link rel="stylesheet" href="../styles.css?v=v1" />
+  <link rel="stylesheet" href="./family.css?v=v5" />
+</head>
+<body class="dark mg-body">
+  <div class="mg-bg" aria-hidden="true"></div>
+  <div class="mg-wrap">
+    <header class="mg-header">
+      <a href="../" class="mg-back" title="Back to Dashboard">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <div class="mg-title">
+        <h2>Manage Family</h2>
+        <span class="mg-role-pill hidden" id="mg-role-pill">Admin</span>
+      </div>
+    </header>
+
+    <div class="mg-loading" id="mg-loading">
+      <div class="spinner"></div>
+      <span>Loading family…</span>
+    </div>
+
+    <div id="mg-content" class="hidden">
+      <!-- Hero -->
+      <section class="mg-hero">
+        <div class="mg-crest" id="mg-crest">F</div>
+        <h1 id="mg-hero-name">Family</h1>
+        <p id="mg-hero-sub"></p>
+        <div class="mg-stats">
+          <div class="mg-stat">
+            <span id="mg-stat-members">–</span>
+            <label>Members</label>
+          </div>
+          <div class="mg-stat">
+            <span id="mg-stat-joined">–</span>
+            <label>Via link</label>
+          </div>
+          <div class="mg-stat">
+            <span id="mg-stat-exp">–</span>
+            <label>Expires</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Members -->
+      <section class="mg-card">
+        <div class="mg-card-title">
+          <h3>Members</h3>
+          <span class="mg-count" id="mg-member-count"></span>
+        </div>
+        <div class="mg-members" id="mg-members"></div>
+        <p class="mg-hint" id="mg-members-hint"></p>
+      </section>
+
+      <!-- Invite (admin only) -->
+      <section class="mg-card hidden" id="mg-invite-card">
+        <div class="mg-card-title">
+          <h3>Invite Link</h3>
+        </div>
+        <div class="mg-ticket">
+          <div class="mg-ticket-top"><span class="dot"></span> <span>Active invite</span></div>
+          <div class="mg-link-box">
+            <input type="text" class="mg-link-input" id="mg-link-input" readonly />
+            <button class="mg-btn" id="mg-copy-btn" type="button">Copy</button>
+          </div>
+          <div class="mg-ticket-perf"></div>
+          <div class="mg-ticket-bottom">
+            <p class="mg-meta" id="mg-invite-meta"></p>
+          </div>
+        </div>
+        <div class="mg-row">
+          <button class="mg-btn" id="mg-new-btn" type="button">New Link</button>
+          <button class="mg-btn mg-btn-danger" id="mg-revoke-btn" type="button">Revoke</button>
+        </div>
+      </section>
+
+      <!-- Danger zone -->
+      <section class="mg-card mg-danger-card">
+        <button class="mg-leave-link" id="mg-leave-btn" type="button">Leave Family</button>
+      </section>
+    </div>
+  </div>
+
+  <div class="fs-toast" id="fs-toast"></div>
+  <script src="./family.js?v=v7"></script>
+</body>
+</html>

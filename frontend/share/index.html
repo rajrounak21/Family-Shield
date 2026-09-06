@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FamilyShield — Shared Conversation</title>
+  <link rel="stylesheet" href="../styles.css?v=v1" />
+  <link rel="stylesheet" href="../ai/ai.css?v=v1" />
+  <style>
+    body { background: var(--bg); }
+    /* Override ai.css: this page must scroll (ai-page sets overflow:hidden) */
+    body.ai-page {
+      overflow-y: auto;
+      height: auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    .share-view {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    .share-view-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .share-view-header h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .share-view-header p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .share-view-banner {
+      background: var(--brand);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .share-view-banner .share-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .share-view-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .share-msg {
+      display: flex;
+      gap: 10px;
+      animation: fadeIn 0.2s ease;
+    }
+    .share-msg-user { justify-content: flex-end; }
+    .share-msg-assistant { justify-content: flex-start; }
+    .share-msg-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      word-wrap: break-word;
+    }
+    .share-msg-user .share-msg-bubble {
+      background: var(--brand);
+      color: #fff;
+    }
+    .share-msg-assistant .share-msg-bubble {
+      background: var(--soft);
+      color: var(--ink);
+    }
+    .share-msg-image {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .share-msg-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .share-msg-avatar svg { width: 14px; height: 14px; }
+    .share-read-only {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 20px;
+    }
+    .share-login-prompt {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .share-login-prompt h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .share-login-prompt p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .share-login-btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .share-login-btn:hover { opacity: 0.85; }
+    .share-access-denied {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .share-access-denied h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .share-access-denied p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .share-expired {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .share-expired h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .share-expired p {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .share-loading {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .share-loading::after {
+      content: "";
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--line);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .share-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+    }
+    .share-nav a {
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .share-nav a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body class="dark ai-page">
+  <div class="share-view" id="share-view">
+    <div class="share-loading" id="share-loading">Loading shared conversation</div>
+  </div>
+  <script>
+    const SHARE_API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+      ? "http://localhost:8000"
+      : window.location.origin;
+
+    function getShareToken() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("sid");
+    }
+
+    function getToken() {
+      return localStorage.getItem("familyshield_token");
+    }
+
+    function isAuthPage() {
+      return !getToken();
+    }
+
+    async function apiFetch(path, options = {}) {
+      const headers = { "Content-Type": "application/json", ...options.headers };
+      const t = getToken();
+      if (t) headers["Authorization"] = "Bearer " + t;
+      const res = await fetch(SHARE_API_BASE + path, { ...options, headers });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ detail: "Request failed" }));
+        throw new Error(err.detail || "HTTP " + res.status);
+      }
+      return res.json();
+    }
+
+    function escHtml(str) {
+      const d = document.createElement("div");
+      d.textContent = str || "";
+      return d.innerHTML;
+    }
+
+    function renderLoginPrompt(shareId) {
+      document.getElementById("share-view").innerHTML = `
+        <div class="share-login-prompt">
+          <div class="ai-empty-icon" style="margin-bottom:16px;">
+            <svg viewBox="0 0 64 64" width="56" height="56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 4L8 14v16c0 14.4 10.2 27.8 24 32 13.8-4.2 24-17.6 24-32V14L32 4z" fill="var(--brand)" fill-opacity="0.15" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M24 32l6 6 12-12" stroke="var(--brand)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2>Login Required</h2>
+          <p>You need to be logged in to view this shared conversation.</p>
+          <a href="/?share_id=${shareId}" class="share-login-btn">Log In</a>
+        </div>`;
+    }
+
+    function renderAccessDenied() {
+      document.getElementById("share-view").innerHTML = `
+        <div class="share-access-denied">
+          <h2>Access Denied</h2>
+          <p>You are not a member of the family this conversation was shared with.</p>
+        </div>`;
+    }
+
+    function renderExpired() {
+      document.getElementById("share-view").innerHTML = `
+        <div class="share-expired">
+          <h2>Sharing Stopped</h2>
+          <p>The owner has stopped sharing this conversation.</p>
+        </div>`;
+    }
+
+    function renderNotFound() {
+      document.getElementById("share-view").innerHTML = `
+        <div class="share-expired">
+          <h2>Not Found</h2>
+          <p>This shared conversation link is invalid or has expired.</p>
+        </div>`;
+    }
+
+    function buildRiskCard(data) {
+      const level = data.risk_level || "unable_to_assess";
+      const labels = { high: "High Risk", medium: "Medium Risk", low: "Low Risk", unable_to_assess: "Unable to Assess" };
+      const icons = { high: "\u26a0\ufe0f", medium: "\ud83d\udfe0", low: "\u2705", unable_to_assess: "\u26aa" };
+      let html = `<div class="ai-risk-card"><div class="ai-risk-header ${level}"><span class="ai-risk-badge">${icons[level] || "\u26aa"}</span><span>${labels[level] || "Analysis Complete"}</span></div><div class="ai-risk-body">`;
+      if (data.summary) html += `<div class="ai-risk-section"><p class="ai-risk-summary">${escHtml(data.summary)}</p></div>`;
+      if (data.indicators?.length) html += `<div class="ai-risk-section"><div class="ai-risk-section-title">Why?</div><ul class="ai-risk-list">${data.indicators.map(i => "<li>" + escHtml(i) + "</li>").join("")}</ul></div>`;
+      if (data.explanation?.length) html += `<div class="ai-risk-section"><div class="ai-risk-section-title">Explanation</div><ul class="ai-risk-list">${data.explanation.map(e => "<li>" + escHtml(e) + "</li>").join("")}</ul></div>`;
+      if (data.recommended_actions?.length) html += `<div class="ai-risk-section"><div class="ai-risk-section-title">Recommended Actions</div><ul class="ai-risk-list">${data.recommended_actions.map(a => "<li>" + escHtml(a) + "</li>").join("")}</ul></div>`;
+      html += `</div></div>`;
+      return html;
+    }
+
+    function shareImageHtml(imageId) {
+      if (!imageId) return "";
+      const t = getToken();
+      const src = SHARE_API_BASE + "/ai/images/" + imageId + (t ? "?token=" + encodeURIComponent(t) : "");
+      return `<img class="share-msg-image" src="${src}" alt="Shared image" loading="lazy" />`;
+    }
+
+    function formatShareContent(m) {
+      const imgHtml = shareImageHtml(m.image_id);
+      if (m.role !== "assistant") {
+        return imgHtml + escHtml(m.content).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
+      }
+      let parsed = null;
+      try { parsed = JSON.parse(m.content); } catch(e) {}
+      if (parsed && parsed.risk_level) {
+        return imgHtml + buildRiskCard(parsed);
+      }
+      if (m.metadata && m.metadata.structured && m.metadata.structured.risk_level) {
+        return imgHtml + buildRiskCard(m.metadata.structured);
+      }
+      return imgHtml + escHtml(m.content).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
+    }
+
+    function renderMessages(data) {
+      let msgsHtml = data.messages.map(m => {
+        const role = m.role === "user" ? "user" : "assistant";
+        const rendered = formatShareContent(m);
+        if (role === "user") {
+          return `<div class="share-msg share-msg-user"><div class="share-msg-bubble">${rendered}</div></div>`;
+        } else {
+          return `<div class="share-msg share-msg-assistant"><div class="share-msg-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="share-msg-bubble">${rendered}</div></div>`;
+        }
+      }).join("");
+
+      document.getElementById("share-view").innerHTML = `
+        <div class="share-view-header">
+          <div class="ai-empty-icon" style="margin-bottom:12px;">
+            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M32 4L8 14v16c0 14.4 10.2 27.8 24 32 13.8-4.2 24-17.6 24-32V14L32 4z" fill="var(--brand)" fill-opacity="0.15" stroke="var(--brand)" stroke-width="2.5" stroke-linejoin="round"/>
+              <path d="M24 32l6 6 12-12" stroke="var(--brand)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h1>FamilyShield AI</h1>
+        </div>
+        <div class="share-view-banner">
+          <div class="share-badge">SHARED CONVERSATION</div><br>
+          Shared by <strong>${escHtml(data.shared_by)}</strong> on ${new Date(data.created_at).toLocaleDateString()}
+        </div>
+        <div class="share-view-messages">${msgsHtml}</div>
+        <div class="share-read-only">This is a read-only shared conversation.</div>
+        <div class="share-nav">
+          <a href="/">← Back to FamilyShield</a>
+        </div>`;
+    }
+
+    async function init() {
+      const shareId = getShareToken();
+      if (!shareId) {
+        renderNotFound();
+        return;
+      }
+
+      if (!getToken()) {
+        renderLoginPrompt(shareId);
+        return;
+      }
+
+      // Logged in on this origin → open inside the chat interface instead
+      // of this standalone page (deep link, reuses the current session).
+      window.location.replace("/ai/index.html?sid=" + encodeURIComponent(shareId));
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
