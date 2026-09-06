@@ -155,15 +155,6 @@ Full interactive docs: `/docs` when server runs.
 
 See `website/privacy.html` and `website/security.html` for user-facing policies.
 
-## 🗺️ Roadmap
-
-- [x] Remove dev ngrok CORS URLs
-- [ ] `https_only=True` + prod CORS lockdown
-- [ ] Screenshots + 60-sec demo video
-- [ ] PWA polish, Hindi voice input
-- [ ] Tests for auth / family / case services
-- [ ] Docker + one-click deploy
-
 ## 🤝 Contributing
 
 Student project — issues and PRs welcome:
@@ -183,6 +174,7 @@ Then open a PR against `main`.
 - GitHub: https://github.com/rajrounak21
 - Project: https://github.com/rajrounak21/Family-Shield
 - Live: https://familyshield.rounakraj.online/
+- Portfolio Link: https://portfolio.rounakraj.online/
 
 ## 📄 License
 
