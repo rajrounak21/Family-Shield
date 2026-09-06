@@ -38,8 +38,6 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "ws://localhost:8000",
         "ws://127.0.0.1:8000",
-        "https://cf7b-106-222-250-174.ngrok-free.app",
-        "wss://cf7b-106-222-250-174.ngrok-free.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
