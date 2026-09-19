@@ -14,7 +14,9 @@ FamilyShield is a full-stack family safety app built for one real moment: your p
 > 👨‍🎓 Built by a student as a portfolio + real-world safety project. Live, open-source, MIT licensed.
 
 🔗 **Repo:** https://github.com/rajrounak21/Family-Shield
+
 🌐 **Live website:** https://familyshield.rounakraj.online/
+
 ⭐ **Showcase tip:** open the live site → scroll to Dashboard preview → check Features + FAQ.
 
 ---
