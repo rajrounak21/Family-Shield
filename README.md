@@ -36,7 +36,7 @@ FamilyShield is a full-stack family safety app built for one real moment: your p
 - [Author](#-author)
 - [License](#-license)
 
-## 💡 Why FamilyShield?
+##  Why FamilyShield?
 
 | Today | With FamilyShield |
 |-------|-------------------|
