@@ -11,7 +11,7 @@
 
 FamilyShield is a full-stack family safety app built for one real moment: your parent gets a scary SMS — “bank blocked, verify now” — and has no one trusted to ask. Paste it, get AI risk analysis in Hindi / Hinglish / English, send it to selected family members in one tap, and record the family verdict **before** anyone clicks, pays, or shares an OTP.
 
-> 👨‍🎓 Built by a student as a portfolio + real-world safety project. Live, open-source, MIT licensed.
+>  Built by a student as a portfolio + real-world safety project. Live, open-source, MIT licensed.
 
 🔗 **Repo:** https://github.com/rajrounak21/Family-Shield
 
