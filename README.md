@@ -64,7 +64,7 @@ FamilyShield is a full-stack family safety app built for one real moment: your p
 - **Local app:** run backend → `http://localhost:8000` (API docs at `/docs`)
 - **Try this:** paste a fake “KYC blocked” SMS into Ask Shield → check risk → share to family → record verdict.
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 | Layer | Tech |
 |-------|------|
