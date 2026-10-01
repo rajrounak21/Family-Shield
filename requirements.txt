@@ -11,8 +11,8 @@ authlib
 httpx
 aiosmtplib
 itsdangerous
-pywebpush
 groq
+pywebpush
 langchain
 langgraph
 langchain-core
