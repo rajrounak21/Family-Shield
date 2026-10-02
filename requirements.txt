@@ -5,12 +5,12 @@ uvicorn[standard]
 pydantic[email]
 pydantic-settings
 PyJWT
-pwdlib[argon2]
-python-multipart
-authlib
 httpx
 aiosmtplib
 itsdangerous
+pwdlib[argon2]
+python-multipart
+authlib
 groq
 pywebpush
 langchain
