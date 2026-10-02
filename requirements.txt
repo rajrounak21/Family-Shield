@@ -4,9 +4,9 @@ fastapi
 uvicorn[standard]
 pydantic[email]
 pydantic-settings
+aiosmtplib
 PyJWT
 httpx
-aiosmtplib
 itsdangerous
 pwdlib[argon2]
 python-multipart
