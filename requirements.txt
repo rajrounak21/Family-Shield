@@ -8,8 +8,8 @@ aiosmtplib
 PyJWT
 httpx
 itsdangerous
-pwdlib[argon2]
 python-multipart
+pwdlib[argon2]
 authlib
 groq
 pywebpush
