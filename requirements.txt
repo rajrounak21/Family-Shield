@@ -1,6 +1,6 @@
+fastapi
 python-dotenv
 pymongo
-fastapi
 uvicorn[standard]
 pydantic[email]
 pydantic-settings
