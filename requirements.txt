@@ -11,8 +11,8 @@ itsdangerous
 python-multipart
 pwdlib[argon2]
 authlib
-groq
 pywebpush
+groq
 langchain
 langgraph
 langchain-core
