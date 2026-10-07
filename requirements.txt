@@ -10,8 +10,8 @@ httpx
 itsdangerous
 python-multipart
 pwdlib[argon2]
-authlib
 pywebpush
+authlib
 groq
 langchain
 langgraph
