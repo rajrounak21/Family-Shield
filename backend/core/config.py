@@ -9,7 +9,6 @@ class Settings(BaseSettings):
     mongodb_url: str = Field(validation_alias=AliasChoices("MONGODB_URI", "MONGODB_URL"))
     database_name: str = "FamilyShield"
 
-
     jwt_secret: str
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
