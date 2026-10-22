@@ -2,7 +2,6 @@ from datetime import datetime
 from typing import Literal
 from pydantic import BaseModel, Field
 
-
 RiskLevel = Literal["high", "medium", "low", "unable_to_assess"]
 
 IntentType = Literal[
