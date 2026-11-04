@@ -6,7 +6,6 @@ client = MongoClient(settings.mongodb_url)
 database = client[settings.database_name]
 users_collection = database["users"]
 password_reset_tokens_collection = database["password_reset_tokens"]
-
 email_verification_tokens_collection = database["email_verification_tokens"]
 
 families_collection = database["families"]
