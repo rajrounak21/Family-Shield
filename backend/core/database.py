@@ -8,7 +8,6 @@ users_collection = database["users"]
 password_reset_tokens_collection = database["password_reset_tokens"]
 email_verification_tokens_collection = database["email_verification_tokens"]
 families_collection = database["families"]
-
 family_members_collection = database["family_members"]
 
 invite_codes_collection = database["invite_codes"]
