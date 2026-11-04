@@ -12,9 +12,7 @@ family_members_collection = database["family_members"]
 invite_codes_collection = database["invite_codes"]
 messages_collection = database["messages"]
 notifications_collection = database["notifications"]
-
 push_subscriptions_collection = database["push_subscriptions"]
-
 oauth_states_collection = database["oauth_states"]
 
 fs = GridFS(database)
