@@ -4,7 +4,6 @@ from core.config import settings
 
 client = MongoClient(settings.mongodb_url)
 database = client[settings.database_name]
-
 users_collection = database["users"]
 
 password_reset_tokens_collection = database["password_reset_tokens"]
