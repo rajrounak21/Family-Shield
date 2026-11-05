@@ -1,5 +1,4 @@
 from pymongo import MongoClient, ASCENDING, DESCENDING
-
 from gridfs import GridFS
 from core.config import settings
 
