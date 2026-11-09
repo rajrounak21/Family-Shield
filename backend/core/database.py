@@ -2,6 +2,7 @@ from pymongo import MongoClient, ASCENDING, DESCENDING
 from gridfs import GridFS
 from core.config import settings
 
+
 client = MongoClient(settings.mongodb_url)
 database = client[settings.database_name]
 users_collection = database["users"]
