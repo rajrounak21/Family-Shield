@@ -3,6 +3,7 @@ from pathlib import Path
 from fastapi import FastAPI, Request, Response
 
 from fastapi.middleware.cors import CORSMiddleware
+
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
 from core.config import settings
